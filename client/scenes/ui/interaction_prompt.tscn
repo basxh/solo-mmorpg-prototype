@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://emberfall_interaction_prompt"]
+
+[ext_resource type="Script" path="res://scripts/ui/interaction_prompt.gd" id="1_prompt"]
+
+[node name="InteractionPrompt" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_prompt")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 24.0
+offset_top = 820.0
+offset_right = 420.0
+offset_bottom = 880.0
+
+[node name="PromptLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Interact: Marshal Renna"

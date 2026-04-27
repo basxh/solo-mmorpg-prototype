@@ -1,0 +1,14 @@
+{
+  "dialogue": [
+    {
+      "npc_id": "marshal_renna",
+      "greeting": "Cinderwatch stands because ordinary folk choose to stand together.",
+      "farewell": "Report to Scout Elden beyond the east road."
+    },
+    {
+      "npc_id": "scout_elden",
+      "greeting": "The wolves are getting bolder near the pines.",
+      "farewell": "Keep your eyes on the old trail markers."
+    }
+  ]
+}

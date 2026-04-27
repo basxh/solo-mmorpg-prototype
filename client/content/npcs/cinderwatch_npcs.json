@@ -1,0 +1,8 @@
+{
+  "npcs": [
+    { "id": "marshal_renna", "name": "Marshal Renna", "role": "quest_giver", "location": "cinderwatch_hamlet" },
+    { "id": "scout_elden", "name": "Scout Elden", "role": "quest_giver", "location": "old_east_road" },
+    { "id": "herbalist_mira", "name": "Herbalist Mira", "role": "vendor_lore", "location": "cinderwatch_hamlet" },
+    { "id": "quartermaster_brann", "name": "Quartermaster Brann", "role": "gear_vendor", "location": "cinderwatch_hamlet" }
+  ]
+}
