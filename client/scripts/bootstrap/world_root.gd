@@ -20,18 +20,18 @@ const DialogueService = preload("res://scripts/dialogue/dialogue_service.gd")
 @onready var enemy_container: Node3D = $EnemyContainer
 @onready var marker_container: Node3D = $MarkerContainer
 
-var session_store := SessionStore.get_instance()
-var zone_loader := ZoneLoader.new()
-var interaction_service := InteractionService.new()
-var targeting_service := TargetingService.new()
-var combat_service := CombatService.new()
-var ability_queue_service := AbilityQueueService.new()
-var quest_state_service := QuestStateService.new()
-var dialogue_service := DialogueService.new()
+var session_store: SessionStore = SessionStore.get_instance()
+var zone_loader: ZoneLoader = ZoneLoader.new()
+var interaction_service: InteractionService = InteractionService.new()
+var targeting_service: TargetingService = TargetingService.new()
+var combat_service: CombatService = CombatService.new()
+var ability_queue_service: AbilityQueueService = AbilityQueueService.new()
+var quest_state_service: QuestStateService = QuestStateService.new()
+var dialogue_service: DialogueService = DialogueService.new()
 
 func _ready() -> void:
-	var world_snapshot := session_store.build_world_snapshot()
-	var zone_snapshot := zone_loader.load_zone_snapshot(world_snapshot.get("zone_id", "ashen_hollow"))
+	var world_snapshot: Dictionary = session_store.build_world_snapshot()
+	var zone_snapshot: Dictionary = zone_loader.load_zone_snapshot(str(world_snapshot.get("zone_id", "ashen_hollow")))
 	add_child(interaction_service)
 	add_child(targeting_service)
 	add_child(combat_service)
@@ -46,32 +46,32 @@ func _ready() -> void:
 
 func _spawn_stub_world_content(zone_snapshot: Dictionary) -> void:
 	for point in zone_snapshot.get("points_of_interest", []):
-		var marker := PoiMarkerScene.instantiate()
+		var marker: Node3D = PoiMarkerScene.instantiate()
 		marker.name = "%s_marker" % point.get("id", "poi")
 		marker.apply_snapshot(point)
 		marker_container.add_child(marker)
 		if point.get("category", "") == "npc":
-			var npc := NpcActorScene.instantiate()
+			var npc: NpcActor = NpcActorScene.instantiate()
 			npc.name = point.get("id", "npc")
 			npc.apply_snapshot(point)
 			npc_container.add_child(npc)
 		elif point.get("category", "") == "enemy_spawn":
-			var enemy := EnemyActorScene.instantiate()
+			var enemy: EnemyActor = EnemyActorScene.instantiate()
 			enemy.name = point.get("id", "enemy")
 			enemy.apply_snapshot(point)
 			enemy_container.add_child(enemy)
 
 func _process(delta: float) -> void:
 	combat_service.tick_cooldowns(delta)
-	var interaction_candidates := []
+	var interaction_candidates: Array = []
 	for npc in npc_container.get_children():
 		interaction_candidates.append({
 			"id": npc.name,
 			"name": npc.display_name,
 			"position": npc.global_position,
 		})
-	var current_interaction := interaction_service.update_from_player_position(player_character.global_position, interaction_candidates)
-	var current_dialogue := {}
+	var current_interaction: Dictionary = interaction_service.update_from_player_position(player_character.global_position, interaction_candidates)
+	var current_dialogue: Dictionary = {}
 	if Input.is_action_just_pressed("interact") and not current_interaction.is_empty():
 		if current_interaction.get("id", "") == "poi_scout_elden" and bool(quest_state_service.build_snapshot().get("turn_in_ready", false)):
 			quest_state_service.turn_in_wolf_quest()
@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 	else:
 		current_dialogue = dialogue_service.current_snapshot
 
-	var target_candidates := []
+	var target_candidates: Array = []
 	for enemy in enemy_container.get_children():
 		if enemy.is_defeated:
 			continue
@@ -96,14 +96,14 @@ func _process(delta: float) -> void:
 		})
 	if Input.is_action_just_pressed("target_cycle"):
 		targeting_service.cycle_target(player_character.global_position, target_candidates, targeting_service.current_target.get("id", ""))
-	var current_target_name := targeting_service.current_target.get("name", "Enemy")
-	var current_time_seconds := Time.get_ticks_msec() / 1000.0
+	var current_target_name: String = str(targeting_service.current_target.get("name", "Enemy"))
+	var current_time_seconds: float = Time.get_ticks_msec() / 1000.0
 	if combat_service.consume_queued_ability(current_target_name, current_time_seconds):
 		ability_queue_service.clear_queue()
 	if Input.is_action_just_pressed("ui_accept") and not targeting_service.current_target.is_empty():
 		combat_service.set_auto_attack_enabled(true)
-		var primary_snapshot := combat_service.build_snapshot()
-		var primary_action_locked := float(primary_snapshot.get("global_action_remaining", 0.0)) > 0.0 or float(primary_snapshot.get("cast_duration", 0.0)) > 0.0
+		var primary_snapshot: Dictionary = combat_service.build_snapshot()
+		var primary_action_locked: bool = float(primary_snapshot.get("global_action_remaining", 0.0)) > 0.0 or float(primary_snapshot.get("cast_duration", 0.0)) > 0.0
 		if not primary_action_locked and float(primary_snapshot.get("cooldowns", {}).get("steady_strike", 0.0)) <= 0.0:
 			combat_service.trigger_primary_ability(current_target_name)
 			for enemy in enemy_container.get_children():
@@ -115,8 +115,8 @@ func _process(delta: float) -> void:
 					break
 	if Input.is_action_just_pressed("ability_slot_two"):
 		ability_queue_service.queue_ability("watchers_focus")
-		var combat_snapshot := combat_service.build_snapshot()
-		var action_locked := float(combat_snapshot.get("global_action_remaining", 0.0)) > 0.0 or float(combat_snapshot.get("cast_duration", 0.0)) > 0.0
+		var combat_snapshot: Dictionary = combat_service.build_snapshot()
+		var action_locked: bool = float(combat_snapshot.get("global_action_remaining", 0.0)) > 0.0 or float(combat_snapshot.get("cast_duration", 0.0)) > 0.0
 		if action_locked:
 			combat_service.queue_ability("watchers_focus", current_time_seconds)
 		elif float(combat_snapshot.get("cooldowns", {}).get("watchers_focus", 0.0)) <= 0.0:
