@@ -69,7 +69,11 @@ func _process(_delta: float) -> void:
 	var current_interaction := interaction_service.update_from_player_position(player_character.global_position, interaction_candidates)
 	var current_dialogue := {}
 	if Input.is_action_just_pressed("interact") and not current_interaction.is_empty():
-		current_dialogue = dialogue_service.open_dialogue(current_interaction.get("id", ""))
+		if current_interaction.get("id", "") == "poi_scout_elden" and bool(quest_state_service.build_snapshot().get("turn_in_ready", false)):
+			quest_state_service.turn_in_wolf_quest()
+			current_dialogue = dialogue_service.build_turn_in_dialogue("scout_elden", "Keep the Road Clear")
+		else:
+			current_dialogue = dialogue_service.open_dialogue(current_interaction.get("id", ""))
 	elif current_interaction.is_empty():
 		dialogue_service.close_dialogue()
 		current_dialogue = {}
@@ -78,6 +82,8 @@ func _process(_delta: float) -> void:
 
 	var target_candidates := []
 	for enemy in enemy_container.get_children():
+		if enemy.is_defeated:
+			continue
 		target_candidates.append({
 			"id": enemy.name,
 			"name": enemy.display_name,
@@ -88,8 +94,14 @@ func _process(_delta: float) -> void:
 		targeting_service.cycle_target(player_character.global_position, target_candidates, targeting_service.current_target.get("id", ""))
 	if Input.is_action_just_pressed("ui_accept") and not targeting_service.current_target.is_empty():
 		combat_service.set_auto_attack_enabled(true)
-		combat_service.trigger_primary_ability()
-		quest_state_service.register_enemy_defeat(targeting_service.current_target.get("id", ""))
+		combat_service.trigger_primary_ability(targeting_service.current_target.get("name", "Enemy"))
+		for enemy in enemy_container.get_children():
+			if enemy.name == targeting_service.current_target.get("id", ""):
+				var defeated := enemy.apply_damage(6)
+				if defeated:
+					quest_state_service.register_enemy_defeat(enemy.enemy_id)
+					targeting_service.clear_target()
+				break
 
 	_update_world_hud({"zone_name": "Ashen Hollow"}, {
 		"character_name": session_store.build_world_snapshot().get("character_name", "Adventurer"),

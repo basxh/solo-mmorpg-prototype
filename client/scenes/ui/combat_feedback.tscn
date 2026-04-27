@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://emberfall_combat_feedback"]
+
+[ext_resource type="Script" path="res://scripts/ui/combat_feedback.gd" id="1_feedback"]
+
+[node name="CombatFeedback" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_feedback")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 600.0
+offset_top = 740.0
+offset_right = 1000.0
+offset_bottom = 800.0
+
+[node name="StatusLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Steady Strike hits Hollow Wolf for 6"

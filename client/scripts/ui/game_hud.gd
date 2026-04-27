@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var action_bar: CanvasLayer = $ActionBar
 @onready var quest_tracker: CanvasLayer = $QuestTracker
 @onready var dialogue_panel: CanvasLayer = $DialoguePanel
+@onready var combat_feedback: CanvasLayer = $CombatFeedback
 
 func apply_session_snapshot(snapshot: Dictionary) -> void:
 	zone_label.text = "Zone: %s" % snapshot.get("zone_name", "Ashen Hollow")
@@ -19,6 +20,7 @@ func apply_session_snapshot(snapshot: Dictionary) -> void:
 		interaction_prompt.apply_candidate(snapshot.get("interaction", {}))
 	if snapshot.has("combat"):
 		action_bar.apply_combat_snapshot(snapshot.get("combat", {}))
+		combat_feedback.apply_combat_feedback(snapshot.get("combat", {}).get("feedback", {}))
 	if snapshot.has("quests"):
 		quest_tracker.apply_quest_snapshot(snapshot.get("quests", {}))
 	if snapshot.has("dialogue"):

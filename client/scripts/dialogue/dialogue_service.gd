@@ -25,6 +25,15 @@ func open_dialogue(npc_id: String) -> Dictionary:
 	emit_signal("dialogue_changed", current_snapshot)
 	return current_snapshot
 
+func build_turn_in_dialogue(npc_id: String, quest_title: String) -> Dictionary:
+	current_snapshot = {
+		"npc_id": npc_id,
+		"greeting": "Well done. Your efforts are already changing the road ahead.",
+		"farewell": "Quest complete: %s" % quest_title,
+	}
+	emit_signal("dialogue_changed", current_snapshot)
+	return current_snapshot
+
 func close_dialogue() -> void:
 	current_snapshot = {}
 	emit_signal("dialogue_changed", current_snapshot)
