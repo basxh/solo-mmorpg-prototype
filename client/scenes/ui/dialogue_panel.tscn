@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://emberfall_dialogue_panel"]
+
+[ext_resource type="Script" path="res://scripts/ui/dialogue_panel.gd" id="1_dialogue"]
+
+[node name="DialoguePanel" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_dialogue")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 380.0
+offset_top = 560.0
+offset_right = 1220.0
+offset_bottom = 860.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SpeakerLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Marshal Renna"
+
+[node name="BodyLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cinderwatch stands because ordinary folk choose to stand together."
+autowrap_mode = 3

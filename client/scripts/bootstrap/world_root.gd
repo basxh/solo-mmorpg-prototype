@@ -9,6 +9,7 @@ const InteractionService = preload("res://scripts/interactions/interaction_servi
 const TargetingService = preload("res://scripts/targeting/targeting_service.gd")
 const CombatService = preload("res://scripts/combat/combat_service.gd")
 const QuestStateService = preload("res://scripts/quests/quest_state_service.gd")
+const DialogueService = preload("res://scripts/dialogue/dialogue_service.gd")
 
 @onready var player_spawn: Marker3D = $PlayerSpawn
 @onready var player_character: CharacterBody3D = $PlayerCharacter
@@ -24,6 +25,7 @@ var interaction_service := InteractionService.new()
 var targeting_service := TargetingService.new()
 var combat_service := CombatService.new()
 var quest_state_service := QuestStateService.new()
+var dialogue_service := DialogueService.new()
 
 func _ready() -> void:
 	var world_snapshot := session_store.build_world_snapshot()
@@ -32,6 +34,7 @@ func _ready() -> void:
 	add_child(targeting_service)
 	add_child(combat_service)
 	add_child(quest_state_service)
+	add_child(dialogue_service)
 	player_character.global_position = player_spawn.global_position
 	follow_camera_rig.set_target(player_character)
 	_spawn_stub_world_content(zone_snapshot)
@@ -64,6 +67,14 @@ func _process(_delta: float) -> void:
 			"position": npc.global_position,
 		})
 	var current_interaction := interaction_service.update_from_player_position(player_character.global_position, interaction_candidates)
+	var current_dialogue := {}
+	if Input.is_action_just_pressed("interact") and not current_interaction.is_empty():
+		current_dialogue = dialogue_service.open_dialogue(current_interaction.get("id", ""))
+	elif current_interaction.is_empty():
+		dialogue_service.close_dialogue()
+		current_dialogue = {}
+	else:
+		current_dialogue = dialogue_service.current_snapshot
 
 	var target_candidates := []
 	for enemy in enemy_container.get_children():
@@ -75,6 +86,10 @@ func _process(_delta: float) -> void:
 		})
 	if Input.is_action_just_pressed("target_cycle"):
 		targeting_service.cycle_target(player_character.global_position, target_candidates, targeting_service.current_target.get("id", ""))
+	if Input.is_action_just_pressed("ui_accept") and not targeting_service.current_target.is_empty():
+		combat_service.set_auto_attack_enabled(true)
+		combat_service.trigger_primary_ability()
+		quest_state_service.register_enemy_defeat(targeting_service.current_target.get("id", ""))
 
 	_update_world_hud({"zone_name": "Ashen Hollow"}, {
 		"character_name": session_store.build_world_snapshot().get("character_name", "Adventurer"),
@@ -83,6 +98,7 @@ func _process(_delta: float) -> void:
 		"target": targeting_service.current_target,
 		"combat": combat_service.build_snapshot(),
 		"quests": quest_state_service.build_snapshot(),
+		"dialogue": current_dialogue,
 	})
 
 func _update_world_hud(zone_snapshot: Dictionary, world_snapshot: Dictionary) -> void:
