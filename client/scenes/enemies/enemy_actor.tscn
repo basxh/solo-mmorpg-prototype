@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://emberfall_enemy_actor"]
+[gd_scene load_steps=3 format=3 uid="uid://emberfall_enemy_actor"]
 
 [ext_resource type="Script" path="res://scripts/enemies/enemy_actor.gd" id="1_enemy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_enemy_body"]
 
 [node name="EnemyActor" type="CharacterBody3D"]
 script = ExtResource("1_enemy")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
-mesh = CapsuleMesh.new()
+mesh = SubResource("CapsuleMesh_enemy_body")
