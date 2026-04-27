@@ -1,0 +1,14 @@
+{
+  "zone_id": "ashen_hollow",
+  "display_name": "Ashen Hollow",
+  "spawn_point": { "x": 0.0, "y": 0.0, "z": 0.0 },
+  "landmarks": [
+    { "id": "cinderwatch_hamlet", "name": "Cinderwatch Hamlet", "type": "hub" },
+    { "id": "old_east_road", "name": "Old East Road", "type": "road" },
+    { "id": "weeping_pine_grove", "name": "Weeping Pine Grove", "type": "combat_area" },
+    { "id": "shallow_ford", "name": "Shallow Ford", "type": "river_crossing" },
+    { "id": "emberglass_ruins", "name": "Emberglass Ruins", "type": "poi" }
+  ],
+  "enemy_families": ["hollow_wolf", "mossbound_scavenger", "ashen_wraith"],
+  "named_enemy": "thornmaw_alpha"
+}

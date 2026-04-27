@@ -1,0 +1,13 @@
+{
+  "zone_id": "ashen_hollow",
+  "display_name": "Ashen Hollow",
+  "theme": "frontier_valley",
+  "recommended_level_range": [1, 3],
+  "landmarks": [
+    "cinderwatch_hamlet",
+    "old_east_road",
+    "weeping_pine_grove",
+    "shallow_ford",
+    "emberglass_ruins"
+  ]
+}

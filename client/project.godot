@@ -1,0 +1,19 @@
+; Engine configuration file.
+; Minimal scaffold for Emberfall Online client.
+
+config_version=5
+
+[application]
+config/name="Emberfall Online"
+run/main_scene="res://scenes/bootstrap/world_root.tscn"
+config/features=PackedStringArray("4.2")
+
+[display]
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+renderer/rendering_method="forward_plus"
+environment/defaults/default_clear_color=Color(0.094118, 0.133333, 0.196078, 1)

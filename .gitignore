@@ -1,0 +1,16 @@
+.godot/
+.import/
+.export/
+addons/
+*.tmp
+*.import
+*.translation
+*.mono/
+client/build/
+server/.spacetimedb/
+server/build/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+Thumbs.db

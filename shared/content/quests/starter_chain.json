@@ -1,0 +1,26 @@
+{
+  "quest_chain_id": "starter_chain",
+  "quests": [
+    {
+      "id": "arrival_at_cinderwatch",
+      "title": "Arrival at Cinderwatch",
+      "giver": "marshal_renna",
+      "objectives": [{ "type": "talk", "target": "scout_elden", "count": 1 }],
+      "rewards": { "xp": 45 }
+    },
+    {
+      "id": "keep_the_road_clear",
+      "title": "Keep the Road Clear",
+      "giver": "scout_elden",
+      "objectives": [{ "type": "kill", "target": "hollow_wolf", "count": 6 }],
+      "rewards": { "xp": 90, "items": ["roadwarden_boots"] }
+    },
+    {
+      "id": "echoes_in_the_ruins",
+      "title": "Echoes in the Ruins",
+      "giver": "herbalist_mira",
+      "objectives": [{ "type": "kill", "target": "thornmaw_alpha", "count": 1 }],
+      "rewards": { "xp": 140, "items": ["emberglass_charm"] }
+    }
+  ]
+}

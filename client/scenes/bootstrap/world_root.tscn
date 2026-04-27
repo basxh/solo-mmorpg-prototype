@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://emberfall_world_root"]
+
+[ext_resource type="Script" path="res://scripts/bootstrap/world_root.gd" id="1_root"]
+[ext_resource type="Environment" path="res://scenes/bootstrap/default_environment.tres" id="2_env"]
+
+[node name="WorldRoot" type="Node3D"]
+script = ExtResource("1_root")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_env")
+
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.280166, 0.501626, 0, 0.873615, 0.486625, -0.573576, -0.398749, 0.716034, 0, 8, 0)
+light_energy = 1.8
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = PlaneMesh.new()
