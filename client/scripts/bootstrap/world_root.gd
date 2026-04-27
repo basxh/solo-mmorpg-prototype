@@ -7,6 +7,8 @@ const EnemyActorScene = preload("res://scenes/enemies/enemy_actor.tscn")
 const PoiMarkerScene = preload("res://scenes/world/poi_marker.tscn")
 const InteractionService = preload("res://scripts/interactions/interaction_service.gd")
 const TargetingService = preload("res://scripts/targeting/targeting_service.gd")
+const CombatService = preload("res://scripts/combat/combat_service.gd")
+const QuestStateService = preload("res://scripts/quests/quest_state_service.gd")
 
 @onready var player_spawn: Marker3D = $PlayerSpawn
 @onready var player_character: CharacterBody3D = $PlayerCharacter
@@ -20,12 +22,16 @@ var session_store := SessionStore.get_instance()
 var zone_loader := ZoneLoader.new()
 var interaction_service := InteractionService.new()
 var targeting_service := TargetingService.new()
+var combat_service := CombatService.new()
+var quest_state_service := QuestStateService.new()
 
 func _ready() -> void:
 	var world_snapshot := session_store.build_world_snapshot()
 	var zone_snapshot := zone_loader.load_zone_snapshot(world_snapshot.get("zone_id", "ashen_hollow"))
 	add_child(interaction_service)
 	add_child(targeting_service)
+	add_child(combat_service)
+	add_child(quest_state_service)
 	player_character.global_position = player_spawn.global_position
 	follow_camera_rig.set_target(player_character)
 	_spawn_stub_world_content(zone_snapshot)
@@ -75,6 +81,8 @@ func _process(_delta: float) -> void:
 		"quest_hint": session_store.build_world_snapshot().get("quest_hint", "Meet Marshal Renna in Cinderwatch Hamlet"),
 		"interaction": current_interaction,
 		"target": targeting_service.current_target,
+		"combat": combat_service.build_snapshot(),
+		"quests": quest_state_service.build_snapshot(),
 	})
 
 func _update_world_hud(zone_snapshot: Dictionary, world_snapshot: Dictionary) -> void:

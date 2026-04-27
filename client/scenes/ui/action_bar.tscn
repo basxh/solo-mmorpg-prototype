@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://emberfall_action_bar"]
+
+[ext_resource type="Script" path="res://scripts/ui/action_bar.gd" id="1_action_bar"]
+
+[node name="ActionBar" type="CanvasLayer"]
+script = ExtResource("1_action_bar")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 520.0
+offset_top = 820.0
+offset_right = 1080.0
+offset_bottom = 880.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="SlotOneLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "1: steady_strike"
+
+[node name="SlotTwoLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "2: watchers_focus"
