@@ -1,23 +1,23 @@
 import pathlib
+import re
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-FILES = [
-    'client/scripts/bootstrap/world_root.gd',
-    'client/scripts/combat/combat_service.gd',
-    'client/scripts/interactions/interaction_service.gd',
-    'client/scripts/world/zone_loader.gd',
-]
+SCRIPT_ROOT = ROOT / 'client' / 'scripts'
+VAR_INFERENCE_PATTERN = re.compile(
+    r'^(?:\s*@\w+(?:\([^\n]*\))?\s+)*(?:\s*static\s+)?var\s+[^:\n]+(?:\s*:=\s*|\s*=\s*)',
+    re.MULTILINE,
+)
 
 
 class GodotVariantInferenceRegressionTest(unittest.TestCase):
-    def test_runtime_scripts_avoid_variant_style_inference_operator(self):
+    def test_runtime_scripts_avoid_variant_style_inference_operator_for_variables(self):
         offenders = []
-        for path in FILES:
-            content = (ROOT / path).read_text(encoding='utf-8')
-            if ':=' in content:
-                offenders.append(path)
-        self.assertEqual([], offenders, f'Use explicit typing instead of := in Godot scripts: {offenders}')
+        for path in SCRIPT_ROOT.rglob('*.gd'):
+            content = path.read_text(encoding='utf-8')
+            if VAR_INFERENCE_PATTERN.search(content):
+                offenders.append(str(path.relative_to(ROOT)))
+        self.assertEqual([], offenders, f'Use explicit typing instead of := for GDScript variables: {offenders}')
 
 
 if __name__ == '__main__':

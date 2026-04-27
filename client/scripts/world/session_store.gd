@@ -5,7 +5,7 @@ const SessionState = preload("res://scripts/network/session_state.gd")
 
 static var _instance: SessionStore
 
-var session_state := SessionState.new()
+var session_state: SessionState = SessionState.new()
 
 static func get_instance() -> SessionStore:
 	if _instance == null:

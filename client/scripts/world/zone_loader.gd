@@ -21,7 +21,7 @@ func _load_json(path: String) -> Dictionary:
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return {}
-	var parsed = JSON.parse_string(file.get_as_text())
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) == TYPE_DICTIONARY:
 		return parsed
 	return {}

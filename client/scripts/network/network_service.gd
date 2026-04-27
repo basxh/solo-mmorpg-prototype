@@ -8,7 +8,7 @@ signal login_succeeded(session_state: SessionState)
 signal login_failed(reason: String)
 
 var client: NetworkClient
-var session_state := SessionState.new()
+var session_state: SessionState = SessionState.new()
 
 func _ready() -> void:
 	client = NetworkClient.new()

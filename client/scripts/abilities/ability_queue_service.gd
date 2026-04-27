@@ -3,7 +3,7 @@ class_name AbilityQueueService
 
 signal ability_queued(snapshot: Dictionary)
 
-var current_snapshot := {
+var current_snapshot: Dictionary = {
 	"queued_ability_id": "",
 	"queue_window_seconds": 0.35,
 }

@@ -4,7 +4,7 @@ extends CanvasLayer
 @onready var cast_progress_label: Label = $MarginContainer/VBoxContainer/CastProgressLabel
 
 func apply_cast_snapshot(snapshot: Dictionary) -> void:
-	var cast_name := str(snapshot.get("cast_name", ""))
+	var cast_name: String = str(snapshot.get("cast_name", ""))
 	if cast_name.is_empty():
 		visible = false
 		return

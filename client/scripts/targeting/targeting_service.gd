@@ -18,12 +18,12 @@ func cycle_target(player_position: Vector3, targets: Array, current_target_id: S
 		clear_target()
 		return current_target
 
-	var sorted_targets := targets.duplicate()
+	var sorted_targets: Array = targets.duplicate()
 	sorted_targets.sort_custom(func(a, b):
 		return player_position.distance_to(a.get("position", Vector3.ZERO)) < player_position.distance_to(b.get("position", Vector3.ZERO))
 	)
 
-	var next_index := 0
+	var next_index: int = 0
 	for index in range(sorted_targets.size()):
 		if sorted_targets[index].get("id", "") == current_target_id:
 			next_index = (index + 1) % sorted_targets.size()
