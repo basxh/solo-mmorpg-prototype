@@ -9,7 +9,7 @@ var session_state: SessionState = SessionState.new()
 
 static func get_instance() -> SessionStore:
 	if _instance == null:
-		_instance = SessionStore.new()
+		_instance = load("res://scripts/world/session_store.gd").new()
 	return _instance
 
 func store_session(new_session_state: SessionState) -> void:

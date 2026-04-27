@@ -15,7 +15,7 @@ const DialogueService = preload("res://scripts/dialogue/dialogue_service.gd")
 @onready var player_spawn: Marker3D = $PlayerSpawn
 @onready var player_character: CharacterBody3D = $PlayerCharacter
 @onready var game_hud: CanvasLayer = $GameHud
-@onready var follow_camera_rig: FollowCameraRig = $FollowCameraRig
+@onready var follow_camera_rig: Marker3D = $FollowCameraRig
 @onready var npc_container: Node3D = $NpcContainer
 @onready var enemy_container: Node3D = $EnemyContainer
 @onready var marker_container: Node3D = $MarkerContainer
@@ -39,7 +39,7 @@ func _ready() -> void:
 	add_child(quest_state_service)
 	add_child(dialogue_service)
 	player_character.global_position = player_spawn.global_position
-	follow_camera_rig.set_target(player_character)
+	follow_camera_rig.call("set_target", player_character)
 	_spawn_stub_world_content(zone_snapshot)
 	_update_world_hud(zone_snapshot, world_snapshot)
 	print("World scaffold ready at spawn:", player_spawn.global_position)
@@ -48,18 +48,18 @@ func _spawn_stub_world_content(zone_snapshot: Dictionary) -> void:
 	for point in zone_snapshot.get("points_of_interest", []):
 		var marker: Node3D = PoiMarkerScene.instantiate()
 		marker.name = "%s_marker" % point.get("id", "poi")
-		marker.apply_snapshot(point)
 		marker_container.add_child(marker)
+		marker.call("apply_snapshot", point)
 		if point.get("category", "") == "npc":
-			var npc: NpcActor = NpcActorScene.instantiate()
+			var npc: Node3D = NpcActorScene.instantiate()
 			npc.name = point.get("id", "npc")
-			npc.apply_snapshot(point)
 			npc_container.add_child(npc)
+			npc.call("apply_snapshot", point)
 		elif point.get("category", "") == "enemy_spawn":
-			var enemy: EnemyActor = EnemyActorScene.instantiate()
+			var enemy: CharacterBody3D = EnemyActorScene.instantiate()
 			enemy.name = point.get("id", "enemy")
-			enemy.apply_snapshot(point)
 			enemy_container.add_child(enemy)
+			enemy.call("apply_snapshot", point)
 
 func _process(delta: float) -> void:
 	combat_service.tick_cooldowns(delta)
@@ -67,7 +67,7 @@ func _process(delta: float) -> void:
 	for npc in npc_container.get_children():
 		interaction_candidates.append({
 			"id": npc.name,
-			"name": npc.display_name,
+			"name": str(npc.get("display_name")),
 			"position": npc.global_position,
 		})
 	var current_interaction: Dictionary = interaction_service.update_from_player_position(player_character.global_position, interaction_candidates)
@@ -86,11 +86,11 @@ func _process(delta: float) -> void:
 
 	var target_candidates: Array = []
 	for enemy in enemy_container.get_children():
-		if enemy.is_defeated:
+		if bool(enemy.get("is_defeated")):
 			continue
 		target_candidates.append({
 			"id": enemy.name,
-			"name": enemy.display_name,
+			"name": str(enemy.get("display_name")),
 			"type": "Enemy",
 			"position": enemy.global_position,
 		})
@@ -108,9 +108,9 @@ func _process(delta: float) -> void:
 			combat_service.trigger_primary_ability(current_target_name)
 			for enemy in enemy_container.get_children():
 				if enemy.name == targeting_service.current_target.get("id", ""):
-					var defeated: bool = bool(enemy.apply_damage(6))
+					var defeated: bool = bool(enemy.call("apply_damage", 6))
 					if defeated:
-						quest_state_service.register_enemy_defeat(enemy.enemy_id)
+						quest_state_service.register_enemy_defeat(str(enemy.get("enemy_id")))
 						targeting_service.clear_target()
 					break
 	if Input.is_action_just_pressed("ability_slot_two"):
