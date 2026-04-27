@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://emberfall_game_hud"]
+[gd_scene load_steps=9 format=3 uid="uid://emberfall_game_hud"]
 
 [ext_resource type="Script" path="res://scripts/ui/game_hud.gd" id="1_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/target_frame.tscn" id="2_target"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/quest_tracker.tscn" id="5_quest_tracker"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dialogue_panel.tscn" id="6_dialogue"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat_feedback.tscn" id="7_feedback"]
+[ext_resource type="PackedScene" path="res://scenes/ui/cast_bar.tscn" id="8_cast_bar"]
 
 [node name="GameHud" type="CanvasLayer"]
 script = ExtResource("1_hud")
@@ -45,3 +46,5 @@ autowrap_mode = 3
 [node name="DialoguePanel" parent="." instance=ExtResource("6_dialogue")]
 
 [node name="CombatFeedback" parent="." instance=ExtResource("7_feedback")]
+
+[node name="CastBar" parent="." instance=ExtResource("8_cast_bar")]

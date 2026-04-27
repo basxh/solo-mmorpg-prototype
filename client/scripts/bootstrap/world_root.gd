@@ -8,6 +8,7 @@ const PoiMarkerScene = preload("res://scenes/world/poi_marker.tscn")
 const InteractionService = preload("res://scripts/interactions/interaction_service.gd")
 const TargetingService = preload("res://scripts/targeting/targeting_service.gd")
 const CombatService = preload("res://scripts/combat/combat_service.gd")
+const AbilityQueueService = preload("res://scripts/abilities/ability_queue_service.gd")
 const QuestStateService = preload("res://scripts/quests/quest_state_service.gd")
 const DialogueService = preload("res://scripts/dialogue/dialogue_service.gd")
 
@@ -24,6 +25,7 @@ var zone_loader := ZoneLoader.new()
 var interaction_service := InteractionService.new()
 var targeting_service := TargetingService.new()
 var combat_service := CombatService.new()
+var ability_queue_service := AbilityQueueService.new()
 var quest_state_service := QuestStateService.new()
 var dialogue_service := DialogueService.new()
 
@@ -33,6 +35,7 @@ func _ready() -> void:
 	add_child(interaction_service)
 	add_child(targeting_service)
 	add_child(combat_service)
+	add_child(ability_queue_service)
 	add_child(quest_state_service)
 	add_child(dialogue_service)
 	player_character.global_position = player_spawn.global_position
@@ -58,7 +61,8 @@ func _spawn_stub_world_content(zone_snapshot: Dictionary) -> void:
 			enemy.apply_snapshot(point)
 			enemy_container.add_child(enemy)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	combat_service.tick_cooldowns(delta)
 	var interaction_candidates := []
 	for npc in npc_container.get_children():
 		interaction_candidates.append({
@@ -92,16 +96,32 @@ func _process(_delta: float) -> void:
 		})
 	if Input.is_action_just_pressed("target_cycle"):
 		targeting_service.cycle_target(player_character.global_position, target_candidates, targeting_service.current_target.get("id", ""))
+	var current_target_name := targeting_service.current_target.get("name", "Enemy")
+	var current_time_seconds := Time.get_ticks_msec() / 1000.0
+	if combat_service.consume_queued_ability(current_target_name, current_time_seconds):
+		ability_queue_service.clear_queue()
 	if Input.is_action_just_pressed("ui_accept") and not targeting_service.current_target.is_empty():
 		combat_service.set_auto_attack_enabled(true)
-		combat_service.trigger_primary_ability(targeting_service.current_target.get("name", "Enemy"))
-		for enemy in enemy_container.get_children():
-			if enemy.name == targeting_service.current_target.get("id", ""):
-				var defeated := enemy.apply_damage(6)
-				if defeated:
-					quest_state_service.register_enemy_defeat(enemy.enemy_id)
-					targeting_service.clear_target()
-				break
+		var primary_snapshot := combat_service.build_snapshot()
+		var primary_action_locked := float(primary_snapshot.get("global_action_remaining", 0.0)) > 0.0 or float(primary_snapshot.get("cast_duration", 0.0)) > 0.0
+		if not primary_action_locked and float(primary_snapshot.get("cooldowns", {}).get("steady_strike", 0.0)) <= 0.0:
+			combat_service.trigger_primary_ability(current_target_name)
+			for enemy in enemy_container.get_children():
+				if enemy.name == targeting_service.current_target.get("id", ""):
+					var defeated := enemy.apply_damage(6)
+					if defeated:
+						quest_state_service.register_enemy_defeat(enemy.enemy_id)
+						targeting_service.clear_target()
+					break
+	if Input.is_action_just_pressed("ability_slot_two"):
+		ability_queue_service.queue_ability("watchers_focus")
+		var combat_snapshot := combat_service.build_snapshot()
+		var action_locked := float(combat_snapshot.get("global_action_remaining", 0.0)) > 0.0 or float(combat_snapshot.get("cast_duration", 0.0)) > 0.0
+		if action_locked:
+			combat_service.queue_ability("watchers_focus", current_time_seconds)
+		elif float(combat_snapshot.get("cooldowns", {}).get("watchers_focus", 0.0)) <= 0.0:
+			combat_service.trigger_slot(1, current_target_name)
+			ability_queue_service.clear_queue()
 
 	_update_world_hud({"zone_name": "Ashen Hollow"}, {
 		"character_name": session_store.build_world_snapshot().get("character_name", "Adventurer"),

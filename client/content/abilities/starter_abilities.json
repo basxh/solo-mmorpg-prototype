@@ -6,6 +6,8 @@
       "type": "melee",
       "resource": "stamina",
       "cooldown_seconds": 4.0,
+      "queue_window_seconds": 0.35,
+      "cast_time_seconds": 0.0,
       "range": 2.5,
       "description": "A reliable opening attack that deals bonus melee damage."
     },
@@ -15,6 +17,8 @@
       "type": "utility",
       "resource": "stamina",
       "cooldown_seconds": 8.0,
+      "queue_window_seconds": 0.35,
+      "cast_time_seconds": 1.2,
       "range": 0.0,
       "description": "Briefly steadies the adventurer, improving awareness and movement recovery."
     }

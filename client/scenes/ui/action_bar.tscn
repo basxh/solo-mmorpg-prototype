@@ -22,3 +22,11 @@ text = "1: steady_strike"
 [node name="SlotTwoLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "2: watchers_focus"
+
+[node name="CooldownLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "cooldown 0.0s"
+
+[node name="QueuedLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "queued: -"
