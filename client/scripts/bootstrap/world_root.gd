@@ -108,7 +108,7 @@ func _process(delta: float) -> void:
 			combat_service.trigger_primary_ability(current_target_name)
 			for enemy in enemy_container.get_children():
 				if enemy.name == targeting_service.current_target.get("id", ""):
-					var defeated := enemy.apply_damage(6)
+					var defeated: bool = bool(enemy.apply_damage(6))
 					if defeated:
 						quest_state_service.register_enemy_defeat(enemy.enemy_id)
 						targeting_service.clear_target()
