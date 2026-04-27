@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://emberfall_poi_marker"]
+
+[ext_resource type="Script" path="res://scripts/world/poi_marker.gd" id="1_marker"]
+
+[node name="PoiMarker" type="Node3D"]
+script = ExtResource("1_marker")
+
+[node name="Label3D" type="Label3D" parent="."]
+billboard = 1
+text = "Point of Interest"

@@ -33,4 +33,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 6.0)
 
 [node name="EnemyContainer" type="Node3D" parent="."]
 
+[node name="MarkerContainer" type="Node3D" parent="."]
+
 [node name="GameHud" parent="." instance=ExtResource("4_hud")]
