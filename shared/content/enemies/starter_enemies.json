@@ -1,0 +1,32 @@
+{
+  "enemies": [
+    {
+      "id": "hollow_wolf",
+      "name": "Hollow Wolf",
+      "level": 1,
+      "family": "beast",
+      "stats": { "hp": 24, "attack": 4 }
+    },
+    {
+      "id": "mossbound_scavenger",
+      "name": "Mossbound Scavenger",
+      "level": 1,
+      "family": "humanoid",
+      "stats": { "hp": 28, "attack": 5 }
+    },
+    {
+      "id": "ashen_wraith",
+      "name": "Ashen Wraith",
+      "level": 2,
+      "family": "undead",
+      "stats": { "hp": 30, "attack": 6 }
+    },
+    {
+      "id": "thornmaw_alpha",
+      "name": "Thornmaw Alpha",
+      "level": 3,
+      "family": "beast",
+      "stats": { "hp": 58, "attack": 9 }
+    }
+  ]
+}

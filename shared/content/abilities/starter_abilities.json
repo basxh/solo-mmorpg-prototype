@@ -1,0 +1,22 @@
+{
+  "abilities": [
+    {
+      "id": "steady_strike",
+      "name": "Steady Strike",
+      "type": "melee",
+      "resource": "stamina",
+      "cooldown_seconds": 4.0,
+      "range": 2.5,
+      "description": "A reliable opening attack that deals bonus melee damage."
+    },
+    {
+      "id": "watchers_focus",
+      "name": "Watcher's Focus",
+      "type": "utility",
+      "resource": "stamina",
+      "cooldown_seconds": 8.0,
+      "range": 0.0,
+      "description": "Briefly steadies the adventurer, improving awareness and movement recovery."
+    }
+  ]
+}

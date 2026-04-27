@@ -20,4 +20,5 @@ func connect_to_world(character_name: String) -> void:
 		"character_id": authenticated_character_id,
 		"endpoint": endpoint,
 		"character_name": character_name,
+		"zone_id": "ashen_hollow",
 	})

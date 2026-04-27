@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "roadwarden_blade",
+      "name": "Roadwarden Blade",
+      "slot": "weapon",
+      "rarity": "common",
+      "stats": { "attack": 3 }
+    },
+    {
+      "id": "roadwarden_boots",
+      "name": "Roadwarden Boots",
+      "slot": "boots",
+      "rarity": "common",
+      "stats": { "armor": 2 }
+    },
+    {
+      "id": "emberglass_charm",
+      "name": "Emberglass Charm",
+      "slot": "trinket",
+      "rarity": "uncommon",
+      "stats": { "spirit": 2 }
+    },
+    {
+      "id": "watchcloak_vest",
+      "name": "Watchcloak Vest",
+      "slot": "chest",
+      "rarity": "common",
+      "stats": { "armor": 3 }
+    }
+  ]
+}
