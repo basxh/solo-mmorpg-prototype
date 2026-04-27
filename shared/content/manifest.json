@@ -7,6 +7,7 @@
     "npcs": ["npcs/cinderwatch_npcs.json"],
     "items": ["items/starter_items.json"],
     "enemies": ["enemies/starter_enemies.json"],
-    "abilities": ["abilities/starter_abilities.json"]
+    "abilities": ["abilities/starter_abilities.json"],
+    "points_of_interest": ["points_of_interest/starter_pois.json"]
   }
 }

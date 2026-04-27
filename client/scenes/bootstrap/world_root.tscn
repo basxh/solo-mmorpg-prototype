@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://emberfall_world_root"]
+[gd_scene load_steps=7 format=3 uid="uid://emberfall_world_root"]
 
 [ext_resource type="Script" path="res://scripts/bootstrap/world_root.gd" id="1_root"]
 [ext_resource type="Environment" path="res://scenes/bootstrap/default_environment.tres" id="2_env"]
 [ext_resource type="PackedScene" path="res://scenes/player/player_character.tscn" id="3_player"]
 [ext_resource type="PackedScene" path="res://scenes/ui/game_hud.tscn" id="4_hud"]
+[ext_resource type="PackedScene" path="res://scenes/world/follow_camera_rig.tscn" id="5_camera"]
 
 [node name="WorldRoot" type="Node3D"]
 script = ExtResource("1_root")
@@ -24,5 +25,12 @@ mesh = PlaneMesh.new()
 
 [node name="PlayerCharacter" parent="." instance=ExtResource("3_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="FollowCameraRig" parent="." instance=ExtResource("5_camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 6.0)
+
+[node name="NpcContainer" type="Node3D" parent="."]
+
+[node name="EnemyContainer" type="Node3D" parent="."]
 
 [node name="GameHud" parent="." instance=ExtResource("4_hud")]

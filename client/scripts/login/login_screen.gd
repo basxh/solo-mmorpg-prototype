@@ -1,6 +1,7 @@
 extends Control
 
 const NetworkService = preload("res://scripts/network/network_service.gd")
+const SessionStore = preload("res://scripts/world/session_store.gd")
 
 @onready var name_input: LineEdit = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/NameInput
 @onready var status_label: Label = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StatusLabel
@@ -23,6 +24,7 @@ func _submit_login() -> void:
 	network_service.login(name_input.text)
 
 func _on_login_succeeded(session_state) -> void:
+	SessionStore.get_instance().store_session(session_state)
 	status_label.text = "Connected as %s" % session_state.character_name
 	get_tree().change_scene_to_file("res://scenes/bootstrap/world_root.tscn")
 

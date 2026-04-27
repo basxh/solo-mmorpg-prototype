@@ -1,0 +1,44 @@
+{
+  "points_of_interest": [
+    {
+      "id": "poi_marshal_renna",
+      "category": "npc",
+      "template": "marshal_renna",
+      "x": -2.0,
+      "y": 0.0,
+      "z": 1.0
+    },
+    {
+      "id": "poi_scout_elden",
+      "category": "npc",
+      "template": "scout_elden",
+      "x": 5.0,
+      "y": 0.0,
+      "z": -4.0
+    },
+    {
+      "id": "poi_hollow_wolf_pack",
+      "category": "enemy_spawn",
+      "template": "hollow_wolf",
+      "x": 12.0,
+      "y": 0.0,
+      "z": -8.0
+    },
+    {
+      "id": "poi_thornmaw_alpha",
+      "category": "enemy_spawn",
+      "template": "thornmaw_alpha",
+      "x": 22.0,
+      "y": 0.0,
+      "z": -18.0
+    },
+    {
+      "id": "poi_cinderwatch_square",
+      "category": "landmark",
+      "template": "cinderwatch_hamlet",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  ]
+}

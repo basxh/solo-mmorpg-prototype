@@ -2,6 +2,7 @@
   "zone_id": "ashen_hollow",
   "display_name": "Ashen Hollow",
   "spawn_point": { "x": 0.0, "y": 0.0, "z": 0.0 },
+  "poi_manifest": "points_of_interest/starter_pois.json",
   "landmarks": [
     { "id": "cinderwatch_hamlet", "name": "Cinderwatch Hamlet", "type": "hub" },
     { "id": "old_east_road", "name": "Old East Road", "type": "road" },
