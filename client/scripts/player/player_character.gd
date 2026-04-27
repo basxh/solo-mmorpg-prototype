@@ -2,6 +2,9 @@ extends CharacterBody3D
 
 @export var move_speed: float = 5.5
 
+func set_facing_yaw(new_yaw_degrees: float) -> void:
+	rotation_degrees.y = new_yaw_degrees
+
 func _physics_process(_delta: float) -> void:
 	var input_vector: Vector2 = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
