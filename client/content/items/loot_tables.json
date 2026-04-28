@@ -1,0 +1,120 @@
+{
+  "loot_tables": {
+    "hollow_wolf": [
+      {
+        "item_id": "wolf_pelt",
+        "name": "Wolf Pelt",
+        "drop_chance": 45.0,
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "rarity": "common"
+      },
+      {
+        "item_id": "wolf_fang",
+        "name": "Wolf Fang",
+        "drop_chance": 25.0,
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "rarity": "common"
+      },
+      {
+        "item_id": "tattered_leather",
+        "name": "Tattered Leather",
+        "drop_chance": 15.0,
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "rarity": "uncommon"
+      }
+    ],
+    "mossbound_scavenger": [
+      {
+        "item_id": "scrap_metal",
+        "name": "Scrap Metal",
+        "drop_chance": 50.0,
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "rarity": "common"
+      },
+      {
+        "item_id": "mossy_cloth",
+        "name": "Mossy Cloth",
+        "drop_chance": 35.0,
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "rarity": "common"
+      },
+      {
+        "item_id": "rusty_gear",
+        "name": "Rusty Gear",
+        "drop_chance": 20.0,
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "rarity": "uncommon"
+      }
+    ],
+    "ashen_wraith": [
+      {
+        "item_id": "ash_essence",
+        "name": "Ash Essence",
+        "drop_chance": 55.0,
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "rarity": "common"
+      },
+      {
+        "item_id": "wispy_cloth",
+        "name": "Wispy Cloth",
+        "drop_chance": 30.0,
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "rarity": "uncommon"
+      },
+      {
+        "item_id": "shadow_fragment",
+        "name": "Shadow Fragment",
+        "drop_chance": 15.0,
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "rarity": "rare"
+      }
+    ],
+    "thornmaw_alpha": [
+      {
+        "item_id": "thorned_hide",
+        "name": "Thorned Hide",
+        "drop_chance": 75.0,
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "rarity": "common"
+      },
+      {
+        "item_id": "alpha_claw",
+        "name": "Alpha Claw",
+        "drop_chance": 90.0,
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "rarity": "common"
+      },
+      {
+        "item_id": "thornmaw_heart",
+        "name": "Thornmaw Heart",
+        "drop_chance": 40.0,
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "rarity": "rare"
+      },
+      {
+        "item_id": "ring_of_thorns",
+        "name": "Ring of Thorns",
+        "drop_chance": 8.0,
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "rarity": "epic",
+        "stats": {
+          "armor": 5,
+          "stamina": 3
+        }
+      }
+    ]
+  }
+}

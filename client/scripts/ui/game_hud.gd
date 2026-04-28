@@ -8,10 +8,11 @@ extends CanvasLayer
 @onready var action_bar: CanvasLayer = $ActionBar
 @onready var quest_tracker: CanvasLayer = $QuestTracker
 @onready var dialogue_panel: CanvasLayer = $DialoguePanel
-@onready var combat_feedback: CanvasLayer = $CombatFeedback
 @onready var cast_bar: CanvasLayer = $CastBar
 @onready var equipment_panel: CanvasLayer = $EquipmentPanel
 @onready var inventory_panel: CanvasLayer = $InventoryPanel
+@onready var debug_overlay: CanvasLayer = $DebugOverlay
+@onready var combat_feedback: CanvasLayer = $CombatFeedback
 
 func apply_session_snapshot(snapshot: Dictionary) -> void:
 	zone_label.text = "Zone: %s" % snapshot.get("zone_name", "Ashen Hollow")
@@ -29,3 +30,8 @@ func apply_session_snapshot(snapshot: Dictionary) -> void:
 		quest_tracker.apply_quest_snapshot(snapshot.get("quests", {}))
 	if snapshot.has("dialogue"):
 		dialogue_panel.apply_dialogue_snapshot(snapshot.get("dialogue", {}))
+	if snapshot.has("debug"):
+		debug_overlay.apply_debug_snapshot(snapshot.get("debug", {}))
+
+func set_debug_service(service: Node) -> void:
+	debug_overlay.set_debug_service(service)

@@ -16,6 +16,7 @@ const FloatingTextService = preload("res://scripts/ui/floating_text_service.gd")
 const EquipmentService = preload("res://scripts/equipment/equipment_service.gd")
 const InventoryService = preload("res://scripts/inventory/inventory_service.gd")
 const LootTableService = preload("res://scripts/inventory/loot_table_service.gd")
+const DebugOverlayService = preload("res://scripts/debug/debug_overlay_service.gd")
 
 @onready var player_spawn: Marker3D = $PlayerSpawn
 @onready var player_character: CharacterBody3D = $PlayerCharacter
@@ -38,6 +39,7 @@ var floating_text_service: FloatingTextService = FloatingTextService.new()
 var equipment_service: EquipmentService = EquipmentService.new()
 var inventory_service: InventoryService = InventoryService.new()
 var loot_table_service: LootTableService = LootTableService.new()
+var debug_overlay_service: DebugOverlayService = DebugOverlayService.new()
 
 func _ready() -> void:
 	var world_snapshot: Dictionary = session_store.build_world_snapshot()
@@ -53,6 +55,7 @@ func _ready() -> void:
 	add_child(equipment_service)
 	add_child(inventory_service)
 	add_child(loot_table_service)
+	add_child(debug_overlay_service)
 	
 	# Wire services together
 	inventory_service.set_equipment_service(equipment_service)
@@ -69,6 +72,15 @@ func _ready() -> void:
 	var inventory_panel: Node = game_hud.get("inventory_panel")
 	if inventory_panel and inventory_panel.has_method("set_inventory_service"):
 		inventory_panel.set_inventory_service(inventory_service)
+	
+	# Wire debug overlay
+	game_hud.set_debug_service(debug_overlay_service)
+	debug_overlay_service.update_zone("ashen_hollow")
+	debug_overlay_service.update_entity_counts(
+		npc_container.get_child_count() + enemy_container.get_child_count(),
+		npc_container.get_child_count(),
+		enemy_container.get_child_count()
+	)
 
 func _spawn_stub_world_content(zone_snapshot: Dictionary) -> void:
 	for point in zone_snapshot.get("points_of_interest", []):
@@ -157,6 +169,15 @@ func _process(delta: float) -> void:
 			# Apply combat feel for ability damage
 			on_damage_dealt(12, "watchers_focus", current_target_name)
 
+	# Update debug overlay data
+	debug_overlay_service.update_player_position(player_character.global_position)
+	debug_overlay_service.update_target_id(targeting_service.current_target.get("id", ""))
+	debug_overlay_service.update_entity_counts(
+		npc_container.get_child_count() + enemy_container.get_child_count(),
+		npc_container.get_child_count(),
+		enemy_container.get_child_count()
+	)
+
 	_update_world_hud({"zone_name": "Ashen Hollow"}, {
 		"character_name": session_store.build_world_snapshot().get("character_name", "Adventurer"),
 		"quest_hint": session_store.build_world_snapshot().get("quest_hint", "Meet Marshal Renna in Cinderwatch Hamlet"),
@@ -173,6 +194,7 @@ func _process(delta: float) -> void:
 		"equipment": equipment_service.build_snapshot(),
 		"equipment_open": equipment_open,
 		"inventory": inventory_service.build_snapshot(),
+		"debug": debug_overlay_service.build_snapshot(),
 	})
 
 func on_damage_dealt(amount: int, ability_id: String, target_name: String) -> void:
