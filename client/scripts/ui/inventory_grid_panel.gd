@@ -9,6 +9,9 @@ signal item_equipped(slot_index: int)
 @export var close_button: Button = null
 @export var title_label: Label = null
 
+const InventorySlotScript = preload("res://scripts/ui/inventory_slot.gd")
+const InventoryService = preload("res://scripts/inventory/inventory_service.gd")
+
 var inventory_service: InventoryService = null
 var inventory_slots: Array = []
 var is_visible: bool = false

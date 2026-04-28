@@ -1,6 +1,8 @@
 extends Node
 class_name InventoryService
 
+const EquipmentService = preload("res://scripts/equipment/equipment_service.gd")
+
 signal inventory_changed(slot_index: int, item: Dictionary)
 signal item_added(item_id: String, quantity: int, slot_index: int)
 signal item_removed(item_id: String, quantity: int, slot_index: int)
@@ -256,15 +258,15 @@ func add_item_from_equipment(item: Dictionary) -> bool:
 
 func _map_slot_to_equipment(item_slot: String) -> int:
 	match item_slot:
-		"head": return EquipmentSlot.HEAD
-		"chest": return EquipmentSlot.CHEST
-		"legs": return EquipmentSlot.LEGS
-		"feet", "boots": return EquipmentSlot.FEET
-		"hands": return EquipmentSlot.HANDS
-		"weapon": return EquipmentSlot.WEAPON_MAIN
-		"offhand": return EquipmentSlot.WEAPON_OFF
-		"trinket", "neck": return EquipmentSlot.NECK
-		"ring": return EquipmentSlot.RING_1
+		"head": return EquipmentService.EquipmentSlot.HEAD
+		"chest": return EquipmentService.EquipmentSlot.CHEST
+		"legs": return EquipmentService.EquipmentSlot.LEGS
+		"feet", "boots": return EquipmentService.EquipmentSlot.FEET
+		"hands": return EquipmentService.EquipmentSlot.HANDS
+		"weapon": return EquipmentService.EquipmentSlot.WEAPON_MAIN
+		"offhand": return EquipmentService.EquipmentSlot.WEAPON_OFF
+		"trinket", "neck": return EquipmentService.EquipmentSlot.NECK
+		"ring": return EquipmentService.EquipmentSlot.RING_1
 		_: return -1
 
 func build_snapshot() -> Dictionary:

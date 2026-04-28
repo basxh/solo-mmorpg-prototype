@@ -1,23 +1,12 @@
 extends CanvasLayer
 class_name EquipmentPanel
 
+const EquipmentService = preload("res://scripts/equipment/equipment_service.gd")
+
 @onready var margin_container: MarginContainer = $MarginContainer
 @onready var grid_container: GridContainer = $MarginContainer/VBoxContainer/GridContainer
 
 var equipment_slots: Dictionary = {}
-
-enum EquipmentSlot {
-	HEAD,
-	CHEST,
-	LEGS,
-	FEET,
-	HANDS,
-	WEAPON_MAIN,
-	WEAPON_OFF,
-	NECK,
-	RING_1,
-	RING_2,
-}
 
 func _ready() -> void:
 	_initialize_slots()
