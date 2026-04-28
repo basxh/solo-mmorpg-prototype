@@ -9,6 +9,7 @@
     "enemies": ["enemies/starter_enemies.json"],
     "abilities": ["abilities/starter_abilities.json"],
     "points_of_interest": ["points_of_interest/starter_pois.json"],
-    "dialogue": ["dialogue/starter_dialogue.json"]
+    "dialogue": ["dialogue/starter_dialogue.json"],
+    "progression": ["progression/xp_curve.json"]
   }
 }

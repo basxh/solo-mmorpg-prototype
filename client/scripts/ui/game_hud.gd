@@ -13,6 +13,9 @@ extends CanvasLayer
 @onready var inventory_panel: CanvasLayer = $InventoryPanel
 @onready var debug_overlay: CanvasLayer = $DebugOverlay
 @onready var combat_feedback: CanvasLayer = $CombatFeedback
+@onready var character_panel: CanvasLayer = $CharacterPanel
+
+var progression_service: Node = null
 
 func apply_session_snapshot(snapshot: Dictionary) -> void:
 	zone_label.text = "Zone: %s" % snapshot.get("zone_name", "Ashen Hollow")
@@ -32,6 +35,11 @@ func apply_session_snapshot(snapshot: Dictionary) -> void:
 		dialogue_panel.apply_dialogue_snapshot(snapshot.get("dialogue", {}))
 	if snapshot.has("debug"):
 		debug_overlay.apply_debug_snapshot(snapshot.get("debug", {}))
+	if snapshot.has("progression"):
+		character_panel.apply_progression_snapshot(snapshot.get("progression", {}))
 
 func set_debug_service(service: Node) -> void:
 	debug_overlay.set_debug_service(service)
+
+func set_progression_service(service: Node) -> void:
+	progression_service = service

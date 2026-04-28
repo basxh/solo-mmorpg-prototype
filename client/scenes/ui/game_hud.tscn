@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/combat_feedback.tscn" id="7_feedback"]
 [ext_resource type="PackedScene" path="res://scenes/ui/cast_bar.tscn" id="8_cast_bar"]
 [ext_resource type="PackedScene" path="res://scenes/ui/debug_overlay.tscn" id="9_debug_overlay"]
+[ext_resource type="PackedScene" path="res://scenes/ui/character_panel.tscn" id="10_character_panel"]
 
 [node name="GameHud" type="CanvasLayer"]
 script = ExtResource("1_hud")
@@ -51,3 +52,5 @@ autowrap_mode = 3
 [node name="CastBar" parent="." instance=ExtResource("8_cast_bar")]
 
 [node name="DebugOverlay" parent="." instance=ExtResource("9_debug_overlay")]
+
+[node name="CharacterPanel" parent="." instance=ExtResource("10_character_panel")]

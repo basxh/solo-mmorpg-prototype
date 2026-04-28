@@ -1,0 +1,104 @@
+{
+  "level_formula": "exponential",
+  "levels": {
+    "1": {"xp_required": 0, "xp_to_next": 400, "health_bonus": 0, "mana_bonus": 0},
+    "2": {"xp_required": 400, "xp_to_next": 900, "health_bonus": 10, "mana_bonus": 5},
+    "3": {"xp_required": 1300, "xp_to_next": 1500, "health_bonus": 20, "mana_bonus": 10},
+    "4": {"xp_required": 2800, "xp_to_next": 2100, "health_bonus": 30, "mana_bonus": 15},
+    "5": {"xp_required": 4900, "xp_to_next": 2800, "health_bonus": 40, "mana_bonus": 20},
+    "6": {"xp_required": 7700, "xp_to_next": 3600, "health_bonus": 50, "mana_bonus": 25},
+    "7": {"xp_required": 11300, "xp_to_next": 4500, "health_bonus": 60, "mana_bonus": 30},
+    "8": {"xp_required": 15800, "xp_to_next": 5500, "health_bonus": 70, "mana_bonus": 35},
+    "9": {"xp_required": 21300, "xp_to_next": 6500, "health_bonus": 80, "mana_bonus": 40},
+    "10": {"xp_required": 27800, "xp_to_next": 7700, "health_bonus": 90, "mana_bonus": 45},
+    "11": {"xp_required": 35500, "xp_to_next": 8800, "health_bonus": 100, "mana_bonus": 50},
+    "12": {"xp_required": 44300, "xp_to_next": 10100, "health_bonus": 110, "mana_bonus": 55},
+    "13": {"xp_required": 54400, "xp_to_next": 11500, "health_bonus": 120, "mana_bonus": 60},
+    "14": {"xp_required": 65900, "xp_to_next": 12900, "health_bonus": 130, "mana_bonus": 65},
+    "15": {"xp_required": 78800, "xp_to_next": 14400, "health_bonus": 140, "mana_bonus": 70},
+    "16": {"xp_required": 93200, "xp_to_next": 16000, "health_bonus": 150, "mana_bonus": 75},
+    "17": {"xp_required": 109200, "xp_to_next": 17700, "health_bonus": 160, "mana_bonus": 80},
+    "18": {"xp_required": 126900, "xp_to_next": 19400, "health_bonus": 170, "mana_bonus": 85},
+    "19": {"xp_required": 146300, "xp_to_next": 21300, "health_bonus": 180, "mana_bonus": 90},
+    "20": {"xp_required": 167600, "xp_to_next": 23200, "health_bonus": 200, "mana_bonus": 100},
+    "21": {"xp_required": 190800, "xp_to_next": 25300, "health_bonus": 210, "mana_bonus": 105},
+    "22": {"xp_required": 216100, "xp_to_next": 27400, "health_bonus": 220, "mana_bonus": 110},
+    "23": {"xp_required": 243500, "xp_to_next": 29700, "health_bonus": 230, "mana_bonus": 115},
+    "24": {"xp_required": 273200, "xp_to_next": 32000, "health_bonus": 240, "mana_bonus": 120},
+    "25": {"xp_required": 305200, "xp_to_next": 34500, "health_bonus": 250, "mana_bonus": 125},
+    "26": {"xp_required": 339700, "xp_to_next": 37000, "health_bonus": 260, "mana_bonus": 130},
+    "27": {"xp_required": 376700, "xp_to_next": 39700, "health_bonus": 270, "mana_bonus": 135},
+    "28": {"xp_required": 416400, "xp_to_next": 42400, "health_bonus": 280, "mana_bonus": 140},
+    "29": {"xp_required": 458800, "xp_to_next": 45300, "health_bonus": 290, "mana_bonus": 145},
+    "30": {"xp_required": 504100, "xp_to_next": 48200, "health_bonus": 300, "mana_bonus": 150},
+    "31": {"xp_required": 552300, "xp_to_next": 51400, "health_bonus": 310, "mana_bonus": 155},
+    "32": {"xp_required": 603700, "xp_to_next": 54600, "health_bonus": 320, "mana_bonus": 160},
+    "33": {"xp_required": 658300, "xp_to_next": 58000, "health_bonus": 330, "mana_bonus": 165},
+    "34": {"xp_required": 716300, "xp_to_next": 61500, "health_bonus": 340, "mana_bonus": 170},
+    "35": {"xp_required": 777800, "xp_to_next": 65200, "health_bonus": 350, "mana_bonus": 175},
+    "36": {"xp_required": 843000, "xp_to_next": 69000, "health_bonus": 360, "mana_bonus": 180},
+    "37": {"xp_required": 912000, "xp_to_next": 73000, "health_bonus": 370, "mana_bonus": 185},
+    "38": {"xp_required": 985000, "xp_to_next": 77100, "health_bonus": 380, "mana_bonus": 190},
+    "39": {"xp_required": 1062100, "xp_to_next": 81400, "health_bonus": 390, "mana_bonus": 195},
+    "40": {"xp_required": 1143500, "xp_to_next": 85800, "health_bonus": 400, "mana_bonus": 200},
+    "41": {"xp_required": 1229300, "xp_to_next": 90500, "health_bonus": 410, "mana_bonus": 205},
+    "42": {"xp_required": 1319800, "xp_to_next": 95200, "health_bonus": 420, "mana_bonus": 210},
+    "43": {"xp_required": 1415000, "xp_to_next": 100100, "health_bonus": 430, "mana_bonus": 215},
+    "44": {"xp_required": 1515100, "xp_to_next": 105200, "health_bonus": 440, "mana_bonus": 220},
+    "45": {"xp_required": 1620300, "xp_to_next": 110400, "health_bonus": 450, "mana_bonus": 225},
+    "46": {"xp_required": 1730700, "xp_to_next": 115800, "health_bonus": 460, "mana_bonus": 230},
+    "47": {"xp_required": 1846500, "xp_to_next": 121400, "health_bonus": 470, "mana_bonus": 235},
+    "48": {"xp_required": 1967900, "xp_to_next": 127200, "health_bonus": 480, "mana_bonus": 240},
+    "49": {"xp_required": 2095100, "xp_to_next": 133200, "health_bonus": 490, "mana_bonus": 245},
+    "50": {"xp_required": 2228300, "xp_to_next": 139400, "health_bonus": 500, "mana_bonus": 250},
+    "51": {"xp_required": 2367700, "xp_to_next": 145800, "health_bonus": 510, "mana_bonus": 255},
+    "52": {"xp_required": 2513500, "xp_to_next": 152400, "health_bonus": 520, "mana_bonus": 260},
+    "53": {"xp_required": 2666900, "xp_to_next": 159300, "health_bonus": 530, "mana_bonus": 265},
+    "54": {"xp_required": 2826200, "xp_to_next": 166400, "health_bonus": 540, "mana_bonus": 270},
+    "55": {"xp_required": 2992600, "xp_to_next": 173700, "health_bonus": 550, "mana_bonus": 275},
+    "56": {"xp_required": 3166300, "xp_to_next": 181200, "health_bonus": 560, "mana_bonus": 280},
+    "57": {"xp_required": 3347500, "xp_to_next": 189000, "health_bonus": 570, "mana_bonus": 285},
+    "58": {"xp_required": 3536500, "xp_to_next": 197000, "health_bonus": 580, "mana_bonus": 290},
+    "59": {"xp_required": 3733500, "xp_to_next": 205300, "health_bonus": 590, "mana_bonus": 295},
+    "60": {"xp_required": 3938800, "xp_to_next": 0, "health_bonus": 600, "mana_bonus": 300}
+  },
+  "xp_sources": {
+    "enemy_kill": {
+      "level_range_bonus": {
+        "same_level": 100,
+        "plus_one": 110,
+        "plus_two": 120,
+        "plus_three_plus": 130,
+        "minus_one": 90,
+        "minus_two": 80,
+        "minus_three_plus": 70
+      },
+      "elite_multiplier": 2.0,
+      "rare_multiplier": 3.0,
+      "boss_multiplier": 5.0
+    },
+    "quest_turnin": {
+      "starter_quest": 400,
+      "zone_quest": 800,
+      "chain_quest": 1200,
+      "elite_quest": 2000
+    },
+    "discovery": {
+      "zone_discovery": 100,
+      "landmark_discovery": 50,
+      "secret_discovery": 250
+    },
+    "crafting": {
+      "per_item": 10
+    }
+  },
+  "rest_bonus": {
+    "accumulation_rate": 1.5,
+    "max_multiplier": 2.0,
+    "max_accumulated_hours": 240
+  },
+  "group_bonus": {
+    "per_member": 0.02,
+    "max_bonus": 0.10
+  }
+}
