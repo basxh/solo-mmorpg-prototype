@@ -14,6 +14,8 @@ const QuestStateService = preload("res://scripts/quests/quest_state_service.gd")
 const DialogueService = preload("res://scripts/dialogue/dialogue_service.gd")
 const FloatingTextService = preload("res://scripts/ui/floating_text_service.gd")
 const EquipmentService = preload("res://scripts/equipment/equipment_service.gd")
+const InventoryService = preload("res://scripts/inventory/inventory_service.gd")
+const LootTableService = preload("res://scripts/inventory/loot_table_service.gd")
 
 @onready var player_spawn: Marker3D = $PlayerSpawn
 @onready var player_character: CharacterBody3D = $PlayerCharacter
@@ -34,6 +36,8 @@ var quest_state_service: QuestStateService = QuestStateService.new()
 var dialogue_service: DialogueService = DialogueService.new()
 var floating_text_service: FloatingTextService = FloatingTextService.new()
 var equipment_service: EquipmentService = EquipmentService.new()
+var inventory_service: InventoryService = InventoryService.new()
+var loot_table_service: LootTableService = LootTableService.new()
 
 func _ready() -> void:
 	var world_snapshot: Dictionary = session_store.build_world_snapshot()
@@ -47,12 +51,24 @@ func _ready() -> void:
 	add_child(dialogue_service)
 	add_child(floating_text_service)
 	add_child(equipment_service)
+	add_child(inventory_service)
+	add_child(loot_table_service)
+	
+	# Wire services together
+	inventory_service.set_equipment_service(equipment_service)
+	player_character.set("inventory_service", inventory_service)
+	
 	player_character.global_position = player_spawn.global_position
 	follow_camera_rig.call("set_target", player_character)
 	follow_camera_rig.call("set_combat_feel_service", combat_feel_service)
 	_spawn_stub_world_content(zone_snapshot)
 	_update_world_hud(zone_snapshot, world_snapshot)
 	print("World scaffold ready at spawn:", player_spawn.global_position)
+	
+	# Connect inventory to player's UI
+	var inventory_panel: Node = game_hud.get("inventory_panel")
+	if inventory_panel and inventory_panel.has_method("set_inventory_service"):
+		inventory_panel.set_inventory_service(inventory_service)
 
 func _spawn_stub_world_content(zone_snapshot: Dictionary) -> void:
 	for point in zone_snapshot.get("points_of_interest", []):
@@ -68,6 +84,7 @@ func _spawn_stub_world_content(zone_snapshot: Dictionary) -> void:
 		elif point.get("category", "") == "enemy_spawn":
 			var enemy: CharacterBody3D = EnemyActorScene.instantiate()
 			enemy.name = point.get("id", "enemy")
+			enemy.set("loot_table_service", loot_table_service)
 			enemy_container.add_child(enemy)
 			enemy.call("apply_snapshot", point)
 
@@ -155,6 +172,7 @@ func _process(delta: float) -> void:
 		"floating_text": floating_text_service.get_active_texts(),
 		"equipment": equipment_service.build_snapshot(),
 		"equipment_open": equipment_open,
+		"inventory": inventory_service.build_snapshot(),
 	})
 
 func on_damage_dealt(amount: int, ability_id: String, target_name: String) -> void:
