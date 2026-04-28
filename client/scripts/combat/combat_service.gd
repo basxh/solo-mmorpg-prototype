@@ -2,6 +2,8 @@ extends Node
 class_name CombatService
 
 signal combat_state_changed(state: Dictionary)
+signal damage_dealt(target: String, amount: int, source: String)
+signal damage_taken(source: String, amount: int)
 
 const ABILITY_CONTENT_PATH: String = "res://content/abilities/starter_abilities.json"
 
@@ -110,6 +112,7 @@ func trigger_primary_ability(target_name: String = "Enemy") -> void:
 
 func _trigger_ability(ability_id: String, target_name: String) -> void:
 	var definition: Dictionary = ability_definitions.get(ability_id, {}) as Dictionary
+	var damage: int = 6 if ability_id == "steady_strike" else (12 if ability_id == "watchers_focus" else 4)
 	current_state["last_ability_used"] = ability_id
 	current_state["cooldowns"][ability_id] = float(definition.get("cooldown_seconds", 0.0))
 	current_state["queue_window_seconds"] = float(definition.get("queue_window_seconds", current_state.get("queue_window_seconds", 0.35)))
@@ -125,12 +128,13 @@ func _trigger_ability(ability_id: String, target_name: String) -> void:
 		current_state["cast_name"] = ""
 		current_state["cast_progress"] = 0.0
 		current_state["feedback"] = {
-			"message": "Steady Strike hits %s for 6" % target_name,
+			"message": "Steady Strike hits %s for %d" % [target_name, damage],
 		}
 	if current_state.get("queued_ability_id", "") == ability_id:
 		current_state["queued_ability_id"] = ""
 		current_state["queue_expires_at"] = 0.0
 	emit_signal("combat_state_changed", current_state)
+	emit_signal("damage_dealt", target_name, damage, ability_id)
 
 func build_snapshot() -> Dictionary:
 	return current_state.duplicate(true)

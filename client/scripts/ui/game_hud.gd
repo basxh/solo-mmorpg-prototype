@@ -10,6 +10,7 @@ extends CanvasLayer
 @onready var dialogue_panel: CanvasLayer = $DialoguePanel
 @onready var combat_feedback: CanvasLayer = $CombatFeedback
 @onready var cast_bar: CanvasLayer = $CastBar
+@onready var equipment_panel: CanvasLayer = $EquipmentPanel
 
 func apply_session_snapshot(snapshot: Dictionary) -> void:
 	zone_label.text = "Zone: %s" % snapshot.get("zone_name", "Ashen Hollow")

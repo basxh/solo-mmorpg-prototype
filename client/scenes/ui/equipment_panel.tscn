@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://emberfall_equipment_panel"]
+
+[ext_resource type="Script" path="res://scripts/ui/equipment_panel.gd" id="1_equipment_panel"]
+[ext_resource type="PackedScene" uid="uid://emberfall_equipment_slot" path="res://scenes/ui/equipment_slot.tscn" id="2_equipment_slot"]
+
+[node name="EquipmentPanel" type="CanvasLayer"]
+script = ExtResource("1_equipment_panel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 540.0
+offset_bottom = 500.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Equipment"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="HeadSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="NeckSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="ChestSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="HandsSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="LegsSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="FeetSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="Ring1Slot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="Ring2Slot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="MainHandSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2
+
+[node name="OffHandSlot" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_equipment_slot")]
+layout_mode = 2

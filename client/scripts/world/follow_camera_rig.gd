@@ -15,6 +15,9 @@ var pitch_degrees: float = -12.0
 var is_left_dragging: bool = false
 var is_right_dragging: bool = false
 
+var combat_feel_service: Node = null
+var shake_offset: Vector2 = Vector2.ZERO
+
 func _ready() -> void:
 	if not target_path.is_empty():
 		target = get_node_or_null(target_path)
@@ -23,6 +26,12 @@ func _ready() -> void:
 func set_target(node: Node3D) -> void:
 	target = node
 	yaw_degrees = node.rotation_degrees.y
+
+func set_combat_feel_service(service) -> void:
+	combat_feel_service = service
+
+func apply_camera_offset(offset: Vector2) -> void:
+	shake_offset = offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -42,6 +51,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if target == null:
 		return
+	
+	if combat_feel_service != null:
+		shake_offset = combat_feel_service.get_camera_offset()
+	
 	var yaw_radians: float = deg_to_rad(yaw_degrees)
 	var pitch_radians: float = deg_to_rad(pitch_degrees)
 	var orbit_offset: Vector3 = Vector3(
@@ -50,5 +63,10 @@ func _process(delta: float) -> void:
 		cos(yaw_radians) * cos(pitch_radians)
 	) * follow_distance
 	var desired_position: Vector3 = target.global_position + Vector3(0.0, follow_height, 0.0) + orbit_offset
+	
+	if shake_offset.length() > 0.0:
+		desired_position.x += shake_offset.x * 0.01
+		desired_position.y += shake_offset.y * 0.01
+	
 	global_position = global_position.lerp(desired_position, min(1.0, delta * smoothing))
 	look_at(target.global_position + Vector3(0.0, 1.25, 0.0), Vector3.UP)
